@@ -1,0 +1,26 @@
+{
+  "name": "nye2016ff",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "hbs": "~4.0.1",
+    "mongodb": "^2.2.15"
+  },
+  "description": "Great fun",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ejh891/nye2016ff.git"
+  },
+  "author": "EJ Hammond",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ejh891/nye2016ff/issues"
+  },
+  "homepage": "https://github.com/ejh891/nye2016ff#readme"
+}

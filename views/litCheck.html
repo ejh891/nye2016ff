@@ -1,0 +1,47 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css">
+    <style>
+        #lit-status {
+            font-size: 72px;
+        }
+    </style>
+</head>
+<body class="container">
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<a href="/">&lt; Back</a>
+<h1 id="lit-status">No</h1>
+<h2>
+
+    <script type="text/javascript">
+        var FitFamNewYear = {
+            isIt: function(date) {
+                if (!date) date = new Date();
+                return (
+                        date.getMonth() == 11 && date.getDate() == 30 ||
+                        date.getMonth() == 11 && date.getDate() == 31 ||
+                        date.getMonth() ==  0 && date.getDate() ==  1
+                );
+            },
+
+            answer: function(date) {
+                if (FitFamNewYear.isIt(date)){
+                    return "Yes";
+                }
+                else {
+                    return "No";
+                }
+            }
+        };
+
+        document.getElementById("lit-status").innerText = FitFamNewYear.answer()
+    </script>
+
+</h2></body></html>
