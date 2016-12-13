@@ -32,7 +32,9 @@ app.post('/create', function(req, res) {
 });
 
 var port = process.env.PORT || 3000;
-MongoClient.connect('mongodb://dev:friskydingo@ds133368.mlab.com:33368/ejh891_devdb', function(err, database) {
+var dbUser = process.env.mlabUser || "dev";
+var dbPass = process.env.mlabPass || "friskydingo";
+MongoClient.connect('mongodb://'+dbUser+':'+dbPass++'@ds133368.mlab.com:33368/ejh891_devdb', function(err, database) {
     if (err) return console.log(err);
     db = database;
     app.listen(port, function() {
