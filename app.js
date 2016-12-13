@@ -31,10 +31,11 @@ app.post('/create', function(req, res) {
     });
 });
 
+var port = process.env.PORT || 3000;
 MongoClient.connect('mongodb://dev:friskydingo@ds133368.mlab.com:33368/ejh891_devdb', function(err, database) {
     if (err) return console.log(err);
     db = database;
-    app.listen(3000, function() {
-        console.log('listening on 3000')
+    app.listen(port, function() {
+        console.log('listening on ' + port)
     });
 });
