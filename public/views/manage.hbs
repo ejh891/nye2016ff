@@ -5,6 +5,11 @@
     <title>Manage</title>
 </head>
 <body>
+    {{#each results}}
+        <div id={{this.id}}>
+            <span>{{this.rank}} days left</span><img src={{this.url}}/>
+        </div>
+    {{/each}}
 <form action="/create" method="POST">
     <input type="text" placeholder="image url" name="url">
     <input type="text" placeholder="days until nye" name="rank">
