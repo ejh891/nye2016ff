@@ -4,14 +4,9 @@ ratchetModule.controller('ratchetController', function($scope, $http) {
     $scope.formData = {};
     $scope.title = "NYE Countdown";
 
-    $http.get('/api/ratchets')
-        .then(function(res) {
-            $scope.ratchets = res.data;
-            console.log(res.data);
-        })
-        .catch(function(res) {
-            console.log('Error: ' + res);
-        });
+    $scope.range = function(n) { // returns a new array with the values 0..n
+        return new Array(n);
+    }
 
     $scope.createRatchet = function() {
         $http.post('/api/ratchets', $scope.formData)
@@ -35,4 +30,14 @@ ratchetModule.controller('ratchetController', function($scope, $http) {
                 console.log('Error: ' + res);
             });
     };
+
+
+    $http.get('/api/ratchets')
+        .then(function(res) {
+            $scope.ratchets = res.data;
+            console.log(res.data);
+        })
+        .catch(function(res) {
+            console.log('Error: ' + res);
+        });
 });
