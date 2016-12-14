@@ -3,11 +3,8 @@ var app = express();
 
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
-var mongoose = require('mongoose');
 
-var dbUser = process.env.DBUSER || "readonly";
-var dbPass = process.env.DBPASS || "readonly";
-mongoose.connect('mongodb://'+dbUser+':'+dbPass+'@ds133368.mlab.com:33368/ejh891_devdb');
+var Ratchet = require('./db/ratchet');
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
@@ -18,16 +15,29 @@ app.listen(port, function() {
     console.log('listening on ' + port);
 });
 
-var ratchetSchema = mongoose.Schema({
-    url : String,
-    rank : { type: Number, min: 0, max: 32 }
-});
-
-var ratchetCollection = mongoose.model('urls', ratchetSchema);
-
-app.get('/api/ratchetImages', function(req, res) {
-    ratchetCollection.find(function(err, results) {
+app.get('/api/ratchets', function(req, res) {
+    Ratchet.find(function(err, results) {
         if (err) res.send(500, err);
         res.json(results);
+    });
+});
+
+app.post('/api/ratchets', function(req, res) {
+    console.log(req.body);
+    var newRatchet = new Ratchet({
+        url: req.body.url,
+        rank: req.body.rank
+    });
+
+    Ratchet.create(newRatchet, function(err, ratchet) {
+        if (err) res.send(500, err);
+        res.json({action: 'created', ratchet: ratchet});
+    });
+});
+
+app.delete('/api/ratchets/:ratchet_id', function(req, res) {
+    Ratchet.remove({_id: req.params.ratchet_id}, function(err, ratchet) {
+        if (err) res.send(500, err);
+        res.json({action: 'deleted', ratchet: ratchet});
     });
 });
