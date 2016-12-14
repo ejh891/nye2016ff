@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html ng-app="ratchetModule">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>FFNYE</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css">
+    <style>
+        img {
+            display: block;
+            max-height: 200px;
+            max-width: 200px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0-rc.2/angular.js"></script>
+    <script src="../app/core.js"></script>
+</head>
+<body ng-controller="ratchetController">
+    <div class="container">
+        <h1 ng-bind="title"></h1>
+        <a href="litCheck">Is it lit?</a>
+        <div ng-repeat="ratchet in ratchets">
+            <span>{{ratchet.rank}} days left</span>
+            <img ng-src="{{ratchet.url}}" />
+        </div>
+    </div>
+</body>
+</html>

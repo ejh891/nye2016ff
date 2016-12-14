@@ -37,8 +37,8 @@ app.delete('/api/ratchets/:ratchet_id', function(req, res) {
     });
 });
 
-app.get('*', function(req, res) {
-    res.sendfile('./public/views/index.html')
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/public/views/index.html');
 });
 
 var port = process.env.PORT || 3000;
