@@ -4,9 +4,9 @@ ratchetModule.controller('ratchetController', function($scope, $http) {
     $scope.formData = {};
     $scope.title = "NYE Countdown";
 
-    $scope.range = function(n) { // returns a new array with the values 0..n
-        return new Array(n);
-    }
+    $scope.hasValue = function(o) {
+        return o !== null;
+    };
 
     $scope.createRatchet = function() {
         $http.post('/api/ratchets', $scope.formData)
@@ -35,9 +35,25 @@ ratchetModule.controller('ratchetController', function($scope, $http) {
     $http.get('/api/ratchets')
         .then(function(res) {
             $scope.ratchets = res.data;
-            console.log(res.data);
+            $scope.tiles = function() {
+                var n = 32;
+                var arr = new Array(n);
+                for (var i=n; i>0; i--) {
+                    var result = $.grep($scope.ratchets, function(o, index){ return o.rank == i; });
+                    if (result.length == 0) {
+                        arr[i] = {url: null, rank: i};
+                    } else if (result.length == 1) {
+                        arr[i] = result[0];
+                    } else {
+                        throw "Duplicate rank";
+                    }
+                }
+                return arr.reverse();
+            }();
         })
         .catch(function(res) {
             console.log('Error: ' + res);
         });
+
+
 });

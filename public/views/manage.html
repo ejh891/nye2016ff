@@ -1,19 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+
+<html ng-app="ratchetModule">
 <head>
-    <meta charset="UTF-8">
-    <title>Manage</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>FFNYE</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css">
+    <style type="text/css">
+        .img-tile {
+            display: block;
+            height: 200px;
+            width: 200px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px dashed slategray;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0-rc.2/angular.js"></script>
+    <script src="../app/core.js"></script>
 </head>
-<body>
-    {{#each results}}
-        <div id={{this.id}}>
-            <span>{{this.rank}} days left</span><img src={{this.url}}/>
+<body ng-controller="ratchetController">
+    <div class="container">
+        <h1 ng-bind="title"></h1>
+        <a href="litCheck">Is it lit?</a>
+        <div ng-repeat="tile in tiles">
+            <div class="img-tile">
+                <span ng-bind="tile.rank"><span>
+                <div ng-show="!hasValue(tile.url)">No entry</div>
+                <div ng-show="hasValue(tile.url)">Yes entry</div>
+            </div>
         </div>
-    {{/each}}
-<form action="/create" method="POST">
-    <input type="text" placeholder="image url" name="url">
-    <input type="text" placeholder="days until nye" name="rank">
-    <button type="submit">Submit</button>
-</form>
+    </div>
 </body>
 </html>
