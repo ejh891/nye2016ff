@@ -41,6 +41,10 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/public/views/index.html');
 });
 
+app.get('/manage', function(req, res) {
+    res.sendFile(__dirname + '/public/views/manage.html');
+});
+
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
     console.log('listening on ' + port);
