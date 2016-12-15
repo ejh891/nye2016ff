@@ -34,6 +34,7 @@
             font-size: 72px;
         }
         .create-ratchet-form {
+            display: block;
             width: 300px;
             margin-bottom: 15px;
         }
@@ -46,31 +47,26 @@
     <div class="container">
         <h1 ng-bind="title"></h1>
         <a href="litCheck">Is it lit?</a>
-        <div ng-repeat="tile in tiles">
-           <span ng-bind="tile.rank"></span>
-            <div ng-if="!tile.url">
-                <div class="img-tile">
-                    <div class="add-ratchet">
-                        <div class="text-x-large">+</div>
+        <div ng-repeat="ratchet in ratchets">
+           <span ng-bind="ratchet.rank"></span>
+           <div class="img-tile">
+                <div ng-if="!ratchet.url" class="add-ratchet">
+                    <div class="text-x-large">+</div>
+                </div>
+                <div ng-if="ratchet.url">
+                    <img ng-src="{{ ratchet.url }}"/>
+                </div>
+            </div>
+            <form class="create-ratchet-form" name="formCreateRatchet_{{tile.rank}}" ng-submit="createRatchet(ratchet)" novalidate>
+                <ng-form name="formCreateRatchet_{{ratchet.rank}}">
+                    <div class="input-group">
+                        <input ng-model="ratchet.url" type="text" class="form-control" name="url" placeholder="Image URL..." required/>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </span>
                     </div>
-                </div>
-                <form class="create-ratchet-form" name="formCreateRatchet_{{tile.rank}}" ng-submit="createRatchet(ratchet)" novalidate>
-                    <ng-form name="formCreateRatchet_{{tile.rank}}">
-                        <input ng-model="ratchet.new.rank" type="text" class="form-control" value="{{ ratchet.rank }}"/>
-                        <div class="input-group">
-                            <input ng-model="ratchet.new.url" type="text" class="form-control" name="url" placeholder="Image URL..." required/>
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </span>
-                        </div>
-                    </ng-form>
-                </form>
-            </div>
-            <div ng-if="tile.url">
-                <div class="img-tile">
-                    <img ng-src="{{ tile.url }}"/>
-                </div>
-            </div>
+                </ng-form>
+            </form>
         </div>
     </div>
 </body>

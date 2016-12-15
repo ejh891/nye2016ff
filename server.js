@@ -8,6 +8,7 @@ var Ratchet = require('./db/ratchet');
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/api/ratchets', function(req, res) {

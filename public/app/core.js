@@ -9,10 +9,9 @@ ratchetModule.controller('ratchetController', function($scope, $http) {
     };
 
     $scope.createRatchet = function(ratchet) {
-        $http.post('/api/ratchets', { url: ratchet.new.url, rank: ratchet.new.rank})
+        $http.post('/api/ratchets', { url: ratchet.url, rank: ratchet.rank})
             .then(function(res) {
-                $scope.ratchets = res.data;
-                console.log("res.data" + res.data);
+                console.log(res.data);
             })
            .catch(function(res) {
                 console.log('Error: ' + res);
@@ -30,29 +29,31 @@ ratchetModule.controller('ratchetController', function($scope, $http) {
             });
     };
 
-
-    $http.get('/api/ratchets')
-        .then(function(res) {
-            $scope.ratchets = res.data;
-            $scope.tiles = function() {
-                var n = 32;
-                var arr = new Array(n);
-                for (var i=n; i>0; i--) {
-                    var result = $.grep($scope.ratchets, function(o, index){ return o.rank == i; });
-                    if (result.length == 0) {
-                        arr[i] = {url: null, rank: i};
-                    } else if (result.length == 1) {
-                        arr[i] = result[0];
-                    } else {
-                        throw "Duplicate rank";
-                    }
-                }
-                return arr.reverse();
-            }();
-        })
-        .catch(function(res) {
-            console.log('Error: ' + res);
+    function insertEmptyRatchets() {
+        var n = 32;
+        for (var i=n; i>0; i--) {
+            var result = $.grep($scope.ratchets, function(o, index){ return o.rank == i; });
+            if (result.length == 0) {
+                $scope.ratchets.push({url: null, rank: i});
+            } else if (result.length != 1) {
+                throw "Duplicate rank";
+            }
+        }
+        return $scope.ratchets.sort(function(a, b) {
+            return b.rank - a.rank; // sort descending
         });
+    };
 
+    function updateRatchets() {
+        $http.get('/api/ratchets')
+            .then(function(res) {
+                $scope.ratchets = res.data;
+                $scope.ratchets = insertEmptyRatchets();
+            })
+            .catch(function(res) {
+                console.log('Error: ' + res);
+            });
+    };
 
+    updateRatchets(); // initialize ratchets for the page
 });
