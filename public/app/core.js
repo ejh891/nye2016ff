@@ -2,33 +2,41 @@ var ratchetModule = angular.module('ratchetModule', []);
 
 ratchetModule.controller('ratchetController', function($scope, $http) {
     $scope.formData = {};
-    $scope.title = "NYE Countdown";
-
-    $scope.hasValue = function(o) {
-        return o !== null;
-    };
+    $scope.title = 'NYE Countdown';
+    $scope.blastOff = '20140313T00:00:00';
 
     $scope.createRatchet = function(ratchet) {
         $http.post('/api/ratchets', { url: ratchet.url, rank: ratchet.rank})
             .then(function(res) {
                 console.log(res.data);
+                updateRatchets();
             })
            .catch(function(res) {
-                console.log('Error: ' + res);
+                console.error(res);
             });
     };
 
-    $scope.deleteRatchet = function(id) {
-        $http.delete('/api/ratchets' + id)
+    $scope.deleteRatchet = function(ratchet) {
+        $http.delete('/api/ratchets/' + ratchet._id)
             .then(function(res) {
-                $scope.ratchets = res.data;
                 console.log(res.data);
+                updateRatchets();
             })
-            .catch(function(data) {
-                console.log('Error: ' + res);
+            .catch(function(res) {
+                console.error(res);
             });
     };
 
+    $scope.updateRatchet = function(ratchet) {
+        $http.put('/api/ratchets/' + ratchet._id, { url: ratchet.url, rank: ratchet.rank})
+            .then(function(res) {
+                console.log(res.data);
+                updateRatchets();
+            })
+            .catch(function(res) {
+                console.error(res);
+            })
+    }
     function insertEmptyRatchets() {
         var n = 32;
         for (var i=n; i>0; i--) {

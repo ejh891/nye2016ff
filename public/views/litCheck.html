@@ -18,30 +18,28 @@
 <![endif]-->
 <a href="/">&lt; Back</a>
 <h1 id="lit-status">No</h1>
-<h2>
+<script type="text/javascript">
+    var FitFamNewYear = {
+        isIt: function(date) {
+            if (!date) date = new Date();
+            return (
+                date.getMonth() == 11 && date.getDate() == 30 ||
+                date.getMonth() == 11 && date.getDate() == 31 ||
+                date.getMonth() ==  0 && date.getDate() ==  1
+            );
+        },
 
-    <script type="text/javascript">
-        var FitFamNewYear = {
-            isIt: function(date) {
-                if (!date) date = new Date();
-                return (
-                    date.getMonth() == 11 && date.getDate() == 30 ||
-                    date.getMonth() == 11 && date.getDate() == 31 ||
-                    date.getMonth() ==  0 && date.getDate() ==  1
-                );
-            },
-
-            answer: function(date) {
-                if (FitFamNewYear.isIt(date)){
-                    return "Yes";
-                }
-                else {
-                    return "No";
-                }
+        answer: function(date) {
+            if (FitFamNewYear.isIt(date)){
+                return "Yes";
             }
-        };
+            else {
+                return "No";
+            }
+        }
+    };
 
-        document.getElementById("lit-status").innerText = FitFamNewYear.answer()
-    </script>
-
-</h2></body></html>
+    document.getElementById("lit-status").innerText = FitFamNewYear.answer()
+</script>
+</body>
+</html>

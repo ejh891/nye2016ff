@@ -31,8 +31,15 @@ app.post('/api/ratchets', function(req, res) {
     });
 });
 
+app.put('/api/ratchets/:ratchet_id', function(req, res) {
+    Ratchet.findByIdAndUpdate(req.params.ratchet_id, {url: req.body.url, rank: req.body.rank}, function(err, ratchet) {
+        if (err) res.status(500).send(err);
+        res.json({action: 'updated', ratchet: ratchet});
+    });
+});
+
 app.delete('/api/ratchets/:ratchet_id', function(req, res) {
-    Ratchet.remove({_id: req.params.ratchet_id}, function(err, ratchet) {
+    Ratchet.findByIdAndRemove(req.params.ratchet_id, function(err, ratchet) {
         if (err) res.send(500, err);
         res.json({action: 'deleted', ratchet: ratchet});
     });
@@ -44,6 +51,10 @@ app.get('/', function(req, res) {
 
 app.get('/manage', function(req, res) {
     res.sendFile(__dirname + '/public/views/manage.html');
+});
+
+app.get('/litCheck', function(req, res) {
+    res.sendFile(__dirname + '/public/views/litCheck.html');
 });
 
 var port = process.env.PORT || 3000;
