@@ -13,8 +13,8 @@
             "outFiles": [],
             "sourceMaps": true,
             "env": {
-                "DBUSER": "dev",
-                "DBPASS": "friskydingo"
+                "DBUSER": "<db user goes here>",
+                "DBPASS": "<db pass goes here>"
             }
         },
         {
