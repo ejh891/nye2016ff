@@ -25,7 +25,7 @@ app.post('/api/ratchets', function(req, res) {
     });
 
     Ratchet.create(newRatchet, function(err, ratchet) {
-        if (err) res.send(500, err);
+        if (err) res.status(500).send(err);
         res.json({action: 'created', ratchet: ratchet});
     });
 });

@@ -8,25 +8,24 @@ ratchetModule.controller('ratchetController', function($scope, $http) {
         return o !== null;
     };
 
-    $scope.createRatchet = function() {
-        $http.post('/api/ratchets', $scope.formData)
-            .success(function(res) {
-                $scope.formData = {}; // clear formData for next request
+    $scope.createRatchet = function(ratchet) {
+        $http.post('/api/ratchets', { url: ratchet.new.url, rank: ratchet.new.rank})
+            .then(function(res) {
                 $scope.ratchets = res.data;
-                console.log("data.data" + res.data);
+                console.log("res.data" + res.data);
             })
-           .error(function(res) {
+           .catch(function(res) {
                 console.log('Error: ' + res);
             });
     };
 
     $scope.deleteRatchet = function(id) {
         $http.delete('/api/ratchets' + id)
-            .success(function(res) {
+            .then(function(res) {
                 $scope.ratchets = res.data;
                 console.log(res.data);
             })
-            .error(function(data) {
+            .catch(function(data) {
                 console.log('Error: ' + res);
             });
     };
