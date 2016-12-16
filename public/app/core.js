@@ -3,7 +3,16 @@ var ratchetModule = angular.module('ratchetModule', []);
 ratchetModule.controller('ratchetController', function($scope, $http) {
     $scope.formData = {};
     $scope.title = 'NYE Countdown';
-    $scope.blastOff = '20140313T00:00:00';
+
+    $scope.calculateDate = function(daysTilBlastOff) {
+        var msPerDay = 60*60*24*1000;
+        var blastOff = new Date(2016, 11, 30);
+        var dateStr = new Date(blastOff - (daysTilBlastOff*msPerDay)).toString();
+
+        var days = "days";
+        if (daysTilBlastOff === 1) days = "day";
+        return dateStr.substring(0, 16) + "(" + daysTilBlastOff + " " + days + " left)";
+    };
 
     $scope.createRatchet = function(ratchet) {
         $http.post('/api/ratchets', { url: ratchet.url, rank: ratchet.rank})

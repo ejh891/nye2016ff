@@ -25,7 +25,7 @@
         <h1 ng-bind="title"></h1>
         <a href="litCheck">Is it lit?</a>
         <div ng-repeat="ratchet in ratchets">
-            <span>{{ratchet.rank}} days left</span>
+            <span>{{ calculateDate(ratchet.rank) }}</span>
             <img ng-src="{{ratchet.url}}" />
         </div>
     </div>

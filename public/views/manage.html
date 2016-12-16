@@ -53,7 +53,7 @@
     <div class="container">
         <h1 ng-bind="title"></h1>
         <div ng-repeat="ratchet in ratchets">
-           <span ng-bind="ratchet.rank"></span>
+           <span>{{ calculateDate(ratchet.rank) }}</span>
                 <div ng-if="!ratchet.url">
                     <div class="img-tile">
                         <div class="add-ratchet">
